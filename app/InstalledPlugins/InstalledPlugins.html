@@ -1,0 +1,18 @@
+<p>This is the partial for installed plugins.</p>
+<div ng-repeat="plugin in plugins">
+    <p ng-if="plugin.installed">
+        <span ng-bind="plugin.name"></span> | versions: <span ng-bind="plugin.version"></span> |
+        <button type="button" ng-click="showInfo(plugin)">Info</button>|
+        <button type="button" ng-click="remove(plugin)">Remove</button> |
+        <button type="button" ng-click="enable(plugin)" ng-show="!plugin.enabled">Enable</button>
+        <button type="button" ng-click="disable(plugin)" ng-show="plugin.enabled">Disable</button>
+    </p>
+</div>
+
+<div ng-show="App.state.info">
+    <li> <h2 ng-bind="App.name"></h2> </li>
+    <li> Version : <span ng-bind="App.version"></span> </li>
+    <li> App Description : <span ng-bind="App.description"></span> </li>
+    <button type="button" ng-click="closeInfo()">Close</button>
+</div>
+
