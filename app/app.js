@@ -2,6 +2,7 @@
 
 // Declare app level module which depends on views, and components
 angular.module('GUI-Demo', [
+  'ngMaterial',
   'ngRoute',
   'GUI-Demo.InstallCtrl',
   'GUI-Demo.Avail',

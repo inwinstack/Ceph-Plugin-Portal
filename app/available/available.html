@@ -1,18 +1,38 @@
-<p>This is the partial for available plugins.</p>
-<div ng-repeat="plugin in plugins">
-    <p ng-if="!plugin.installed">{{plugin.name}} | 
-        versions: {{plugin.version}} | 
-        <button type="button" ng-click="preInstall(plugin)">Install</button>
-    </p>
-</div>
+<div layout="row">
+  <section flex="70">
+    <md-subheader class="md-no-sticky">Available PlugIn Lists</md-subheader>
+    <md-list ng-repeat="plugin in plugins">
+      <md-card ng-if="!plugin.installed">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{plugin.name}}</span>
+            <span class="md-subhead">versions: {{plugin.version}}</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-md card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="preInstall(plugin)">Install</md-button>
+        </md-card-actions>
+      </md-card>     
+    </md-list>
+  </section>
 
-<div ng-show="installQueue.length">
-    <li ng-repeat="prepareInstall in installQueue">
-        {{prepareInstall.name}}
-        <button type="button" ng-click="delPreInstall(prepareInstall)">Remove</button><br>
-    </li>
-    <button type="button" ng-click="UncheckAllInstallQueue()">Cancel</button>
-    <button type="button" ng-click="install(installSelected)">Install</button>
+  <section ng-show="installQueue.length" flex="30"> 
+        <md-toolbar class="md-theme-light">
+          <h1 class="md-toolbar-tools">Ready To Install</h1>
+        </md-toolbar>
+        <md-content layout-padding> <!-- ng-controller="RightCtrl" -->
+          <li ng-repeat="prepareInstall in installQueue">
+            {{prepareInstall.name}}
+            <md-button ng-click="delPreInstall(prepareInstall)">Remove</md-button><br>
+          </li>
+          <md-button ng-show="installQueue.length" ng-click="UncheckAllInstallQueue()">Cancel</md-button>
+          <md-button ng-show="installQueue.length" ng-click="install(installSelected)">Install</md-button>
+        </md-content>
+      </md-sidenav>
+  </section>
 </div>
 
 <!-- <p>
