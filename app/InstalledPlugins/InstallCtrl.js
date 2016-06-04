@@ -38,6 +38,7 @@ angular.module('GUI-Demo.InstallCtrl', ['ngRoute'])
         $scope.App.name = plugin.name;
         $scope.App.description = plugin.description;
         $scope.App.version = plugin.version;
+        $scope.App.installed = plugin.installed;
     };
 
     $scope.closeInfo = function () {

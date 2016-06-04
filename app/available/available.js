@@ -10,6 +10,15 @@ angular.module('GUI-Demo.Avail', ['ngRoute', 'checklist-model'])
 }])
 
 .controller('AvailCtrl', ['$scope','PluginService', function($scope, PluginService) {
+    $scope.ResetApp = function () {
+        $scope.App = {};
+        $scope.App.state = {};
+    };
+
+    $scope.ResetApp();
+
+    $scope.App.state.info = false;
+
     $scope.ResetInstallQueue = function () {
         $scope.installQueue = [];
     };
@@ -38,5 +47,19 @@ angular.module('GUI-Demo.Avail', ['ngRoute', 'checklist-model'])
         selectedIDs.length > 0 && PluginService.install(selectedIDs);
 
         $scope.ResetInstallQueue();
+    };
+
+    $scope.showInfo = function (plugin) {
+        $scope.installQueue = [];
+    
+        $scope.App.state.info = true;
+        $scope.App.name = plugin.name;
+        $scope.App.description = plugin.description;
+        $scope.App.version = plugin.version;
+    };
+
+    $scope.closeInfo = function () {
+        $scope.App.state.info = false;
+        $scope.ResetApp();
     };
 }]);

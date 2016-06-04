@@ -1,38 +1,53 @@
 <div layout="row">
-  <section flex="70">
-    <md-subheader class="md-no-sticky">Available PlugIn Lists</md-subheader>
-    <md-list ng-repeat="plugin in plugins">
-      <md-card ng-if="!plugin.installed">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{plugin.name}}</span>
-            <span class="md-subhead">versions: {{plugin.version}}</span>
-          </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-md card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-click="preInstall(plugin)">Install</md-button>
-        </md-card-actions>
-      </md-card>     
-    </md-list>
+  <section flex>
+      <md-subheader class="md-no-sticky">Available PlugIn Lists</md-subheader>
+      <md-list ng-repeat="plugin in plugins">
+         <md-card ng-if="!plugin.installed">
+            <md-card-title>
+            <md-card-title-text>
+               <span class="md-headline" ng-bind="plugin.name"></span>
+               <span class="md-subhead" >Version : {{plugin.version}}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+               <div class="md-media-md card-media"></div>
+            </md-card-title-media>
+            </md-card-title>
+               <md-card-actions layout="row" layout-align="end center">
+                  <md-button class="md-icon-button" ng-click="showInfo(plugin)">
+                  <md-icon md-svg-icon="../assets/img/info.svg"></md-icon>
+                  </md-button>
+                  <md-button ng-click="preInstall(plugin)">Install</md-button>
+               </md-card-actions>
+         </md-card>     
+      </md-list>
   </section>
 
-  <section ng-show="installQueue.length" flex="30"> 
-        <md-toolbar class="md-theme-light">
-          <h1 class="md-toolbar-tools">Ready To Install</h1>
-        </md-toolbar>
-        <md-content layout-padding> <!-- ng-controller="RightCtrl" -->
-          <li ng-repeat="prepareInstall in installQueue">
-            {{prepareInstall.name}}
-            <md-button ng-click="delPreInstall(prepareInstall)">Remove</md-button><br>
-          </li>
-          <md-button ng-show="installQueue.length" ng-click="UncheckAllInstallQueue()">Cancel</md-button>
-          <md-button ng-show="installQueue.length" ng-click="install(installSelected)">Install</md-button>
+  <section ng-if="installQueue.length && !App.state.info" flex="30"> 
+         <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">Ready To Install</h1>
+         </md-toolbar>
+         <md-content layout-padding>
+            <li ng-repeat="prepareInstall in installQueue">
+               <span ng-bind="prepareInstall.name"></span>
+               <md-button ng-click="delPreInstall(prepareInstall)">Remove</md-button><br>
+            </li>
+            <md-button ng-show="installQueue.length" ng-click="UncheckAllInstallQueue()">Cancel</md-button>
+            <md-button ng-show="installQueue.length" ng-click="install(installSelected)">Install</md-button>
         </md-content>
-      </md-sidenav>
   </section>
+
+  <section ng-if="App.state.info" flex="30">  
+      <md-toolbar class="md-theme-light">
+         <h1 class="md-toolbar-tools">Plugin Info</h1>
+      </md-toolbar>
+      <md-content layout-padding>
+         <li> <h2 ng-bind="App.name"></h2> </li>
+         <li> Version : <span ng-bind="App.version"></span> </li>
+         <li> Info : <span ng-bind="App.description"></span> </li>
+         <button type="button" ng-click="closeInfo()">Close</button>
+      </md-content>
+  </section>
+
 </div>
 
 <!-- <p>
